@@ -1,18 +1,4 @@
-#include <iostream>
-#include <list>
-#include <string>
-
-class UnorderedMap
-{
-public:
-    int hashFunction(const int key) const;
-    int size() const;
-    bool empty() const;
-
-private:
-    static const int hashGroups = 10;
-    std::list<std::pair<int, std::string>> hashTable[hashGroups];
-};
+#include "UnorderedMap.hpp"
 
 int UnorderedMap::hashFunction(const int key) const
 {
