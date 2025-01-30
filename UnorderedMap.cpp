@@ -5,6 +5,7 @@
 class UnorderedMap
 {
 public:
+    int hashFunction(const int key) const;
     int size() const;
     bool empty() const;
 
@@ -12,6 +13,11 @@ private:
     static const int hashGroups = 10;
     std::list<std::pair<int, std::string>> hashTable[hashGroups];
 };
+
+int UnorderedMap::hashFunction(const int key) const
+{
+    return key % hashGroups;
+}
 
 int UnorderedMap::size() const
 {
