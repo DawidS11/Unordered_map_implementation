@@ -15,6 +15,12 @@ public:
     int hashFunction(const int key) const;
     int size() const;
     bool empty() const;
+    bool contains(const int key) const;
+    std::string find(const int key) const;
+    void emplace(const int key, const std::string& value);
+    void try_emplace(const int key, const std::string& value);
+
+    void print() const;
 };
 
 #endif
