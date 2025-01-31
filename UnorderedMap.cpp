@@ -114,6 +114,11 @@ void UnorderedMap::print() const
 {
     for (int i = 0; i < hashGroups; ++i)
     {
+        if (hashTable[i].empty())
+        {
+            continue;
+        }
+        std::cout << "hash group " << i << ":" << std::endl;
         for (auto it = hashTable[i].begin(); it != hashTable[i].end(); ++it)
         {
             std::cout << it->first << ", " << it->second << std::endl;
