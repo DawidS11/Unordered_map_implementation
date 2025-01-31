@@ -83,6 +83,33 @@ void UnorderedMap::try_emplace(const int key, const std::string& value)
     hashTable[hashKey].emplace_back(key, value);
 }
 
+void UnorderedMap::insert(const std::pair<int, std::string>& pair)
+{
+    int hashKey = hashFunction(pair.first);
+    auto it = std::find_if(
+        hashTable[hashKey].begin(), hashTable[hashKey].end(),
+        [&pair](const std::pair<int, std::string>& x) { return x.first == pair.first; });
+    if (it != hashTable[hashKey].end())
+    {
+        it->second = pair.second;
+        return;
+    }
+
+    hashTable[hashKey].push_back(pair);
+}
+
+void UnorderedMap::remove(const int key)
+{
+    int hashKey = hashFunction(key);
+    auto it = std::find_if(
+        hashTable[hashKey].begin(), hashTable[hashKey].end(),
+        [&key](const std::pair<int, std::string>& x) { return x.first == key; });
+    if (it != hashTable[hashKey].end())
+    {
+        hashTable[hashKey].erase(it);
+    }
+}
+
 void UnorderedMap::print() const
 {
     for (int i = 0; i < hashGroups; ++i)
