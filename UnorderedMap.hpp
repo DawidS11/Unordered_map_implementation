@@ -21,6 +21,7 @@ public:
     void try_emplace(const int key, const std::string& value);
     void insert(const std::pair<int, std::string>& pair);
     void remove(const int key);
+    std::string& operator[](const int key);
 
     void print() const;
 };

@@ -110,6 +110,21 @@ void UnorderedMap::remove(const int key)
     }
 }
 
+std::string& UnorderedMap::operator[](const int key)
+{
+    int hashKey = hashFunction(key);
+    auto it = std::find_if(
+        hashTable[hashKey].begin(), hashTable[hashKey].end(),
+        [&key](const std::pair<int, std::string>& x) { return x.first == key; });
+    if (it != hashTable[hashKey].end())
+    {
+        return it->second;
+    }
+
+    emplace(key, std::string{});
+    return hashTable[hashKey].back().second;
+}
+
 void UnorderedMap::print() const
 {
     for (int i = 0; i < hashGroups; ++i)
@@ -118,7 +133,7 @@ void UnorderedMap::print() const
         {
             continue;
         }
-        std::cout << "hash group " << i << ":" << std::endl;
+        std::cout << "Hash group " << i << ":" << std::endl;
         for (auto it = hashTable[i].begin(); it != hashTable[i].end(); ++it)
         {
             std::cout << it->first << ", " << it->second << std::endl;

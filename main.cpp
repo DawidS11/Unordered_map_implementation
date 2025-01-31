@@ -1,6 +1,7 @@
 #include <iostream>
-#include "UnorderedMap.hpp"
 #include <cassert>
+
+#include "UnorderedMap.hpp"
 
 int main()
 {
@@ -8,6 +9,8 @@ int main()
 
     assert(m.empty() == true);
     assert(m.size() == 0);
+
+    m.emplace(0, "zero");
     m.emplace(1, "one");
     m.emplace(2, "two");
     m.try_emplace(2, "two");
@@ -23,14 +26,30 @@ int main()
     m.insert(std::make_pair<int, std::string>(153, "xxx153"));
     m.insert(std::make_pair<int, std::string>(154, "xxx154"));
 
-    m.print();
+    m.remove(55);
+    m.remove(154);
 
-    assert(m.find(1) == "one");
+    assert(m.find(0) == "zero");
     assert(m.find(2) == "two");
     assert(m.find(10) == std::string{});
-    assert(m.find(3) == "three");
+    assert(m.find(3) == "xxx3");
+
+    assert(m.find(1) == "one");
+    assert(m[1] == "one");
+    assert(m[3] == "xxx3");
+    m[10] = "ten";
+    assert(m.find(10) == "ten");
+    m[1] = "qqq";
+    assert(m.find(1) == "qqq");
+    assert(m[1] == "qqq");
+
+    assert(m.contains(55) == false);
+    assert(m.contains(154) == false);
     assert(m.contains(2) == true);
     assert(m.contains(5) == false);
+
     assert(m.empty() == false);
-    assert(m.size() == 9);
+    assert(m.size() == 12);
+
+    m.print();
 }
